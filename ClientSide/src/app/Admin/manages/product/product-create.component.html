@@ -1,0 +1,262 @@
+<div class="card" [class.mat-elevation-z2]="!isActive">
+    <div class="card-header bg-primary text-white">
+        <h1 class="text-center card-title">Product Form</h1>
+    </div>
+    <div class="card-body">
+        <div class="col d-flex justify-content-center">
+            <form [formGroup]="productForm" (ngSubmit)="onSubmit()" novalidate class="example-form">
+                <input matInput hidden formControlName="id">
+                <mat-form-field class="input-full-width">
+                    <input matInput placeholder="Product Name" formControlName="name">
+                    <mat-error *ngIf="productForm.get('name').hasError('required')">
+                        Product name is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="input-full-width">
+                    <mat-label>Select Category</mat-label>
+                    <select matNativeControl id="mySelectCategoryId" formControlName="categoryID">
+                        <option value="" disabled selected></option>
+                        <option *ngFor="let item of categoryName" [value]="item.id">{{item.name}}</option>
+                    </select>
+                    <mat-error>
+                        Category name is<strong> required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="input-full-width">
+                    <mat-label>Select Brand</mat-label>
+                    <select matNativeControl id="mySelectBrandId" formControlName="brandID">
+                        <option value="" disabled selected></option>
+                        <option *ngFor="let item of brand" [value]="item.id">{{item.bandName}}</option>
+                    </select>
+                    <mat-error>
+                        Band name is<strong> required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="input-full-width">
+                    <textarea matInput #descriptionTextArea="matInput" formControlName="description"
+                        placeholder="Product Description"></textarea>
+                    <mat-error *ngIf="productForm.get('description').hasError('required')">
+                        Product description is<strong> required</strong>
+                    </mat-error>
+                    <!-- <mat-error *ngIf="productForm.get('description').hasError('minLength')">
+                        Product description at lest<strong> 50 charecter</strong>
+                    </mat-error> -->
+                </mat-form-field>
+                <label *ngIf="descriptionTextArea.focused"
+                    [ngClass]="[50 > productDescriptionLength || productDescriptionLength > 400 ? 'text-danger' : 'text-success']">You've
+                    written
+                    <strong>
+                        {{productDescriptionLength}}
+                    </strong> Minimum 50 and Maximum 400 Charecter
+                    <strong>
+                        is required.
+                    </strong>
+                </label>
+                <input [attr.disabled]="isDisable" (change)="onInputFileChange($event)" multiple type="file"
+                    id="fileUploadInput" hidden />
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card upload-file-card input-full-width" (click)="onCardClick()">
+                            <div class="card-body">
+                                <div class="divImage" *ngFor="let url of imageUrls;">
+                                    <img [src]="url" class="card-img-top ml-3">
+                                    <!-- <button class="btn-delete-image"
+                                        type="button" (click)="onRemoveImageButtonClick(url)" mat-icon-button color="warn"
+                                        aria-label="Example icon-button with a heart icon">
+                                        <mat-icon>remove</mat-icon>
+                                    </button> -->
+                                </div>
+                            </div>
+                            <h2 *ngIf="fileUploadMessage" id="fileUploadMessageID" class="text-center">
+                                <i id="photoIcon" class="material-icons">
+                                    add_a_photo
+                                </i><br />Upload Photo
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <mat-form-field class="input-full-width">
+                    <input matInput formControlName="SKU" placeholder="Product SKU Code">
+                </mat-form-field>
+                <div class="row d-flex justify-content-between">
+                    <div class="col-md-4">
+                        <mat-form-field class="input-full-width mr-3">
+                            <input matInput formControlName="marketPrice" placeholder="Market Price">
+                        </mat-form-field>
+                        <mat-error *ngIf="productForm.get('marketPrice').hasError('min')">
+                            Market Price must be a <strong>positive number</strong>
+                        </mat-error>
+                        <mat-error *ngIf="productForm.get('marketPrice').hasError('pattern')">
+                            Market Price must be a <strong>number</strong>
+                        </mat-error>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="input-full-width mr-3">
+                            <input matInput formControlName="discountPrice" placeholder="Discount Price">
+                        </mat-form-field>
+                        <mat-error *ngIf="productForm.get('discountPrice').hasError('min')">
+                            Discount Price must be a <strong>positive number</strong>
+                        </mat-error>
+                        <mat-error *ngIf="productForm.get('discountPrice').hasError('pattern')">
+                            Discount Price must be a <strong>number</strong>
+                        </mat-error>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field class="input-full-width">
+                            <input matInput formControlName="salesPrice" placeholder="Sales Price">
+                            <mat-error *ngIf="productForm.get('salesPrice').hasError('required')">
+                                Sales Price is <strong>required</strong>
+                            </mat-error>
+                            <mat-error *ngIf="productForm.get('salesPrice').hasError('min')">
+                                Sales Price must be a <strong>positive number</strong>
+                            </mat-error>
+                            <mat-error *ngIf="productForm.get('salesPrice').hasError('pattern')">
+                                Sales Price must be a <strong>number</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <mat-checkbox formControlName="isCloth" [(ngModel)]="isCloth" class="example-margin">IsCloth
+                </mat-checkbox>
+                <br />
+                <div *ngIf="isCloth">
+                    <div formArrayName="clothSizes"
+                        *ngFor="let size of productForm.get('clothSizes').controls; let i = index;">
+                        <div [formGroupName]='i'>
+                            <div class="row group-relative-position d-flex justify-content-between">
+                                <div class="col-md-4">
+                                    <mat-form-field class="input-full-width mr-3">
+                                        <!-- <input matInput formControlName="chest" placeholder="chest size"> -->
+                                        <mat-label>Chest</mat-label>
+                                        <select matNativeControl id="" formControlName="chest">
+                                            <option value="" disabled selected></option>
+                                            <option *ngFor="let item of productSize" [value]="item.chest">{{item.chest}}
+                                            </option>
+                                        </select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="input-full-width mr-3">
+                                        <mat-label>Shoulder</mat-label>
+                                        <select matNativeControl id="" formControlName="shoulder">
+                                            <option value="" disabled selected></option>
+                                            <option *ngFor="let item of productSize" [value]="item.shoulder">
+                                                {{item.shoulder}}</option>
+                                        </select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="input-full-width">
+                                        <mat-label>Sleeve</mat-label>
+                                        <select matNativeControl id="" formControlName="sleeve">
+                                            <option value="" disabled selected></option>
+                                            <option *ngFor="let item of productSize" [value]="item.sleeve">
+                                                {{item.sleeve}}</option>
+                                        </select>
+                                    </mat-form-field>
+                                </div>
+                                <button *ngIf="productForm.get('clothSizes').length > 1" class="btn-pull-right"
+                                    type="button" (click)="onRemoveSizeButtonClick(i)" mat-icon-button color="warn"
+                                    aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>remove_circle</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <label class="hover-hand" for="AddSizeButton">Add Size</label><button id="AddSizeButton"
+                        type="button" (click)="onAddSizeButton()" mat-icon-button color="primary"
+                        aria-label="Example icon-button with a heart icon">
+                        <mat-icon>add_box</mat-icon>
+                    </button>
+                </div>
+                <div *ngIf="!isCloth" [attr.disabled]="isCloth">
+                    <div formArrayName="otherProductSize"
+                        *ngFor="let otherSizes of productForm.get('otherProductSize').controls; let i = index;">
+                        <div [formGroupName]="i">
+                            <div class="row group-relative-position d-flex justify-content-between">
+                                <div class="col-md-4">
+                                    <mat-form-field class="input-full-width">
+                                        <input matInput formControlName="lenth" placeholder="product lenth">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="input-full-width">
+                                        <input matInput formControlName="height" placeholder="product height">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-4">
+                                    <mat-form-field class="input-full-width">
+                                        <input matInput formControlName="width" placeholder="product width">
+                                    </mat-form-field>
+                                </div>
+                                <button *ngIf="productForm.get('otherProductSize').length > 1" class="btn-pull-right"
+                                    type="button" (click)="onRemoveOtherSizeButtonClick(i)" mat-icon-button color="warn"
+                                    aria-label="Example icon-button with a heart icon">
+                                    <mat-icon>remove_circle</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <label class="hover-hand" for="OtherSizeButton">Add Size</label><button id="OtherSizeButton"
+                        type="button" (click)="onaddOtherSizeButtonClick()" mat-icon-button color="primary"
+                        aria-label="Example icon-button with a heart icon">
+                        <mat-icon>add_box</mat-icon>
+                    </button>
+                </div>
+                <div formArrayName="colors"
+                    *ngFor="let colorControl of productForm.get('colors').controls; let i = index">
+                    <div [formGroupName]="i">
+                        <div class="row d-flex justify-content-between group-relative-position">
+                            <mat-form-field class="input-full-width col-md-12">
+                                <mat-label>Color</mat-label>
+                                <select matNativeControl id="" formControlName="colorID">
+                                    <option value="" disabled selected></option>
+                                    <option *ngFor="let item of color" [value]="item.id">{{item.name}}</option>
+                                </select>
+                            </mat-form-field>
+                            <button *ngIf="productForm.get('colors').length > 1" class="btn-pull-right" type="button"
+                                (click)="onRemoveColorButtonClick(i)" mat-icon-button color="warn"
+                                aria-label="Example icon-button with a heart icon">
+                                <mat-icon>remove_circle</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <label class="hover-hand" for="colorAddButton">Add Color</label><button id="colorAddButton"
+                    type="button" (click)="onColorAddButtonClick()" mat-icon-button color="primary"
+                    aria-label="Example icon-button with a heart icon">
+                    <mat-icon>add_box</mat-icon>
+                </button>
+                <mat-form-field class="input-full-width">
+                    <input matInput formControlName="weight" placeholder="Product weight" />
+                </mat-form-field>
+                <mat-form-field class="input-full-width">
+                    <input matInput placeholder="Stock quantity" formControlName="stockQuantity">
+                    <mat-error *ngIf="productForm.get('stockQuantity').hasError('required')">
+                        Stock quantity is <strong>required</strong>
+                    </mat-error>
+                    <mat-error *ngIf="productForm.get('stockQuantity').hasError('min')">
+                        Stock quantity at lest <strong>10</strong>
+                    </mat-error>
+                    <mat-error *ngIf="productForm.get('stockQuantity').hasError('pattern')">
+                        Stock quantity must be a <strong>number</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="input-full-width">
+                    <mat-label>Season</mat-label>
+                    <select matNativeControl id="" formControlName="season">
+                        <option value="" disabled selected></option>
+                        <option *ngFor="let item of Season" [value]="item">{{item}}</option>
+                    </select>
+                </mat-form-field>
+                <mat-checkbox formControlName="isFavourite" class="example-margin">IsFavorite</mat-checkbox><br />
+                <mat-checkbox formControlName="isActive" class="example-margin">IsActive</mat-checkbox><br />
+                <button type="submit" mat-raised-button class="btn-custom mr-2" color="primary">Save</button>
+                <button type="button" (click)="onClear()" mat-raised-button [hidden]="productForm.value.id > 0"
+                    class="btn-custom" color="accent">Clear</button>
+                <button type="button" (click)="onCancel()" mat-raised-button [hidden]="0 >= productForm.value.id"
+                    class="btn-custom" color="accent">Cancel</button>
+            </form>
+        </div>
+    </div>
+</div>

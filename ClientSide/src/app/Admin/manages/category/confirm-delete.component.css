@@ -1,0 +1,9 @@
+.btn-close{
+    background: none; 
+    border: 0px;
+    height:35px; 
+    width: 35px; 
+    padding-right: 15px; 
+    padding-top: 5px; 
+    border-radius: 50px;
+}

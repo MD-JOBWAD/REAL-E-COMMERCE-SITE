@@ -1,0 +1,29 @@
+<div class="d-flex justify-content-center row">
+    <h1 class="text-center col-md-12">Brand Form</h1>
+    <hr/>
+    <form [formGroup]="brandForm" (ngSubmit)="onSubmit()" novalidate class="example-form">
+        <input matInput hidden formControlName="id">
+        <mat-form-field class="input-full-width">
+                <input matInput placeholder="Category ID" formControlName="categoryId">
+                <mat-error *ngIf="brandForm.get('categoryId').hasError('required')">
+                    Category ID is <strong>required</strong>
+                </mat-error>
+        </mat-form-field>
+        <mat-form-field class="input-full-width">
+            <mat-label>Select Parent Brand</mat-label>
+            <select matNativeControl id="mySelectId" formControlName="parentBrandId">
+                <option value="" disabled selected></option>
+                <option *ngFor="let item of allBrand" [value]="item.id">{{item.bandName}}</option>
+            </select>
+        </mat-form-field>
+        <mat-form-field class="input-full-width">
+            <input matInput placeholder="Brand Name" formControlName="name">
+            <mat-error *ngIf="brandForm.get('name').hasError('required')">
+                Brand name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <button type="submit" mat-raised-button class="btn-custom mr-2" [disabled]="brandForm.invalid" color="primary">Save</button>
+        <button type="button" (click)="onClear()" mat-raised-button [hidden]="brandForm.value.id > 0" class="btn-custom" color="accent">Clear</button>
+        <button type="button" (click)="onCancel()" mat-raised-button [hidden]="0 >= brandForm.value.id" class="btn-custom" color="accent">Cancel</button>
+    </form>
+</div>

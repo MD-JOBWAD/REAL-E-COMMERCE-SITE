@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-header">
+    <div class="row d-flex justify-content-between">
+      <div class="col-sm-10 col-xm-10">
+        <h4 class="card-title">Delete Confirmation...</h4>
+      </div>
+      <div class="col-sm-2 col-xm-2">
+        <button class="btn-close"  (click)="dismiss()">
+          <mat-icon><i class="material-icons" style="margin-left: -2px;">
+            cancel
+            </i></mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+      <h5 class="card-text">
+          Are you sure to delete?
+        </h5>
+  </div>
+  <div class="card-footer d-flex justify-content-end">
+    <!-- <button type="button" class="btn btn-danger" [mat-dialog-close]="false">No</button>
+    <button type="button" class="btn btn-primary" [mat-dialog-close]="true">Yes</button> -->
+    <button mat-fab class="mr-2" color="primary" [mat-dialog-close]="false">No</button>
+    <button mat-fab color="warn" [mat-dialog-close]="true">Yes</button>
+  </div>
+</div>

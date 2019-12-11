@@ -1,0 +1,17 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { GeneralUsersComponent } from './general-users.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+
+
+const routes: Routes = [
+  { path: "", component:  GeneralUsersComponent, children:[
+    { path: "product/:id", component: ProductDetailsComponent }
+  ]}
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class GeneralUserRoutingModule { }

@@ -1,0 +1,49 @@
+.slide-container, .slide-iamge-size{
+    max-height: 400px;
+}
+.slide-btn{
+    width: 200px; 
+    padding: 7px; 
+    border-radius: 30px;
+    font-size: 20px;
+}
+
+.custom-carousel-control-next-icon
+{
+  margin-right: -200px;
+  color: black;
+}
+.arrow-icon{
+font-size: 70px;
+}
+.custom-carousel-control-prev-icon {
+  margin-left: -200px;
+  color:  black;
+}
+.search-help-text{
+  padding: 10px;
+}
+.image-fixed{
+    max-height: 200px;
+    max-width: 250px;
+}
+.shop-now-button{
+    width: 100%;
+}
+.spacer{
+    flex: 1 1 auto;
+}
+.star-size{
+  font-size: 17px;
+}
+.example-card{
+    position: relative;
+}
+.btn-favorite-icon{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+.product-detais-link{
+    text-decoration: none;
+}

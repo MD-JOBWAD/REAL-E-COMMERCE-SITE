@@ -1,0 +1,6 @@
+nav div ul li a{
+    color: black;
+}
+nav div ul li a:hover{
+    color: blueviolet;
+}

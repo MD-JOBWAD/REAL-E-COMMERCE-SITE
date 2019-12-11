@@ -1,0 +1,44 @@
+.small-image{
+    cursor: pointer;
+}
+.small-image-bordered{
+    border: 1px solid orangered;
+}
+.full-width{
+    width: 100%;
+    text-decoration: none;
+}
+.text-color{
+    color: black;
+}
+.product-name {
+    background-image: linear-gradient(to right, #FF5E00, #fff1e8);
+    height: auto;
+    color: white;
+    padding: 10px 0px 7px 20px;
+    border-radius: 10px;
+}
+.spacer{
+    flex: 1 1 auto;
+}
+.image-fixed{
+    max-height: 200px;
+    max-width: 250px;
+}
+.shop-now-button{
+    width: 100%;
+}
+.spacer{
+    flex: 1 1 auto;
+}
+.example-card{
+    position: relative;
+}
+.btn-favorite-icon{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+.product-detais-link{
+    text-decoration: none;
+}

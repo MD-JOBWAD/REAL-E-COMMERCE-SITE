@@ -1,0 +1,53 @@
+.example-form {
+    min-width: 150px;
+    max-width: 700px;
+    width: 100%;
+  }
+  
+  .input-full-width {
+    width: 100%;
+  }
+  .btn-custom{
+    width: 75px;
+  }
+  .input-short-width{
+    width: 222px;
+  }
+  .group-relative-position{
+    position: relative;
+  }
+  .btn-pull-right{
+    position: absolute;
+    top: 5px;
+    right: -25px;
+  }
+  .hover-hand:hover{
+    cursor: pointer;
+  }
+  .upload-file-card{
+    height: 150px;
+    cursor: pointer;
+    background: #F0F0F0;
+  }
+  #fileUploadMessageID{
+    margin-top: -100px;
+    opacity: 0.5;
+  }
+  #photoIcon{
+    font-size: 90px;
+  }
+  .card-img-top {
+    max-width: 110px;
+    min-width: 50px;
+    height: 110px;
+    object-fit: cover;
+}
+.divImage{
+  float: left;
+  position: relative;
+}
+.btn-delete-image{
+  position: absolute;
+  top: -50px;
+  left: 50px;
+}

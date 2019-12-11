@@ -1,0 +1,104 @@
+<br />
+<br />
+<div class="row">
+    <div class="col-sm-1">
+        <div class="row">
+            <div class="col-md-12 small-image" *ngFor="let productImage of singleProductImages">
+                <img [ngClass]="{'small-image-bordered' : productImage.filePath == bigImageUrl}"
+                    (click)="onSmallImageClick(productImage.filePath)"
+                    src="http://localhost:57087/images/products/{{productImage.filePath}}" class="img-thumbnail" />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <img [src]="'http://localhost:57087/images/products/' + setImageUrl()" class="img-thumbnail" />
+    </div>
+    <div class="col-sm-4">
+        <dl class="col-sm-12">
+            <div class="row">
+                <dd class="col-sm-12 product-name">
+                    <h5>{{product?.name}}</h5>
+                </dd>
+                <dt class="col-sm-3">Details:</dt>
+                <dd class="col-sm-9">{{product?.description}}</dd>
+                <dt class="col-sm-3">Price:</dt>
+                <dd class="col-sm-9">{{product?.salesPrice}}</dd>
+                <dt class="col-sm-3 text-primary">Review:</dt>
+                <dd class="col-sm-9">0 <span style="color: #149E5B;">Reviews</span></dd>
+                <dt class="col-sm-3 text-primary">Rating:</dt>
+                <dd class="col-sm-9">
+                        <span>
+                                <i class="material-icons star-size">star_border</i>
+                                <i class="material-icons star-size">star_border</i>
+                                <i class="material-icons star-size">star_border</i>
+                                <i class="material-icons star-size">star_border</i>
+                                <i class="material-icons star-size">star_border</i>
+                            </span> 
+                </dd>
+                <dt class="col-sm-3 text-primary">Total Order:</dt>
+                <dd class="col-sm-9">0</dd>
+            </div>
+        </dl>
+    </div>
+    <hr />
+    <div class="col-sm-3">
+        <mat-card>
+            <p>Tk: {{product?.salesPrice}} for this product</p>
+            <p class="text-warning">Tk: 50 Shipping Fees Deposit Outside of dhaka</p>
+            <h2 class="text-success">Quantity</h2>
+            <form>
+                <mat-form-field class="full-width">
+                    <mat-select  name="qty" [(ngModel)]="productQuantity">
+                        <mat-option class="text-color" *ngFor="let quantity of getQuantity()" value="{{quantity}}">
+                            {{quantity}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <br />
+                <br />
+                <button mat-raised-button color="primary" (click)="addProductToCart(product)" class="full-width mb-1">Add To Cart</button>
+                <button mat-raised-button color="accent" class="full-width mb-1">Buy Now</button>
+            </form>
+            <a mat-raised-button routerLink="." class="full-width mb-1">Add To List</a>
+            <br />
+            <br />
+            <p>Ship form myWebsite</p>
+            <p>within a day</p>
+        </mat-card>
+    </div>
+</div>
+<br/>
+<br/>
+<h3>Related Product</h3>
+<hr/>
+<div class="row">
+        <div class="col-md-3 mb-2" *ngFor="let product of productsByCategory">
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <button mat-icon-button class="btn-favorite-icon"
+                        [color]="matBtnId == 'btn_' + product.id ? favoriteBtnColor : ''" id="btn_{{product.id}}"
+                        (click)="onFavoriteBtnClick(product.id)" aria-label="Example icon-button with a heart icon">
+                        <mat-icon>favorite</mat-icon>
+                    </button>
+                    <span class="spacer"></span>
+                    <p>TK {{product?.salesPrice}}</p>
+                </mat-card-header>
+                <a (click)="goTop()" class="product-detais-link" routerLink="/product/{{product.id}}">
+                    <img src="http://localhost:57087/images/products/{{getImageUrl(product.id)}}"
+                        class="mx-auto d-block image-fixed img-thumbnail" />
+                    <mat-card-content>
+                        <br />
+                        <h5>{{getProductName(product?.name)}}</h5>
+                        <p>
+                            {{getDetails(product?.description)}}
+                        </p>
+                    </mat-card-content>
+                </a>
+                <mat-card-actions>
+                    <button mat-raised-button color="primary" class="mr-1 mb-1 shop-now-button">Shop Now</button>
+                    <span class="spacer"></span>
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+<br/>

@@ -1,0 +1,49 @@
+<div *ngIf="searchBoxValue != '' && allProduct.length > 0" class="alert alert-success mt-5" role="alert">
+    <h4>Your search result for {{searchBoxValue}}...</h4>
+</div>
+<div *ngIf="allProduct.length == 0" class="alert alert-danger mt-5" role="alert">
+    <h4 class="text-center text-uppercase">Not Found any product with "{{searchBoxValue}}"</h4>
+    <div class="row justify-content-center">
+        <div class="col-sm-6">
+            <img src="assets/images/notFound.jpg" class="m-auto d-block" width="350" height="350" />
+        </div>
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-md-3 mb-2" *ngFor="let product of allProduct">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <button mat-icon-button class="btn-favorite-icon"
+                    [color]="matBtnId == 'btn_' + product.id ? favoriteBtnColor : ''" id="btn_{{product.id}}"
+                    (click)="onFavoriteBtnClick(product.id)" aria-label="Example icon-button with a heart icon">
+                    <mat-icon>favorite</mat-icon>
+                </button>
+                <span class="spacer"></span>
+                <p>TK {{product.salesPrice}}</p>
+            </mat-card-header>
+            <a class="product-detais-link" routerLink="/product/{{product.id}}">
+                <img src="http://localhost:57087/images/products/{{getImageUrl(product.id)}}"
+                    class="mx-auto d-block image-fixed img-thumbnail" /></a>
+            <mat-card-content>
+                <br />
+                    <span><h5>{{getProductName(product.name)}}</h5></span>
+                    <span class="spacer"></span>
+                <span>
+                    <i class="material-icons star-size">star_border</i>
+                    <i class="material-icons star-size">star_border</i>
+                    <i class="material-icons star-size">star_border</i>
+                    <i class="material-icons star-size">star_border</i>
+                    <i class="material-icons star-size">star_border</i>
+                </span> <a class="product-detais-link" routerLink="/product/{{product.id}}">
+                    <p>
+                        {{getDetails(product.description)}}
+                    </p>
+                </a>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" class="mr-1 mb-1 shop-now-button">Shop Now</button>
+                <span class="spacer"></span>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>

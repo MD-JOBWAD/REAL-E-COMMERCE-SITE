@@ -1,0 +1,16 @@
+<div class="d-flex justify-content-center row">
+    <h1 class="text-center col-md-12">Color Form</h1>
+    <hr/>
+    <form [formGroup]="colorForm" (ngSubmit)="onSubmit()" novalidate class="example-form">
+            <input matInput hidden formControlName="id">
+        <mat-form-field class="input-full-width">
+            <input matInput placeholder="Color Name" formControlName="name">
+            <mat-error *ngIf="colorForm.get('name').hasError('required')">
+                Color name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <button type="submit" mat-raised-button class="btn-custom mr-2" [disabled]="colorForm.invalid" color="primary">Save</button>
+        <!-- <button type="button" (click)="onClear()" mat-raised-button [hidden]="colorForm.value.id > 0" class="btn-custom" color="accent">Clear</button> -->
+        <button type="button" (click)="onCancel()" mat-raised-button ="0 >= colorForm.value.id" class="btn-custom" color="accent">Cancel</button>
+    </form>
+</div>
